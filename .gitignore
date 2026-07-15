@@ -1,0 +1,10 @@
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+figures/
+*.aux
+*.log
+*.out
+*.synctex.gz
+latex/
+*.zip
