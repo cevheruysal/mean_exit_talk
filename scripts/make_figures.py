@@ -56,35 +56,41 @@ def main():
         print(f"  -> {out / name}.{'/'.join(formats)}")
 
     t0 = time.time()
-    print("[1/6] sampling error (hist + running mean)")
+    print("[1/7] sampling error (hist + running mean)")
     fig, _ = figures.fig_sampling_error(TOY, get_rng("sampling"), M=M_hist)
     save(fig, "01_sampling_error")
 
-    print("[2/6] discretization error (EM vs exact path)")
+    print("[2/7] discretization error (EM vs exact path)")
     save(figures.fig_discretization_error(TOY, get_rng("discretization")),
          "02_discretization_error")
 
-    print("[3/6] missed exits (Figure 12.1)")
+    print("[3/7] missed exits (Figure 12.1)")
     save(figures.fig_missed_exit(TOY, get_rng("missed")), "03_missed_exits")
 
-    print("[4/6] u(x) (Figure 12.2)")
+    print("[4/7] u(x) (Figure 12.2)")
     save(figures.fig_u(TOY), "04_u_of_x")
 
-    print("[5/6] M x dt grid of estimates + CIs  (Section 4.2 experiment)")
+    print("[5/7] u(x) + exit-time distribution heatmap with CIs "
+          "(the Section 4.1 slide)")
+    heat_kw = dict(n_x=20, M=1_000, dt=5e-3) if args.fast else {}
+    save(figures.fig_u_with_heatmap(TOY, **heat_kw),
+         "05_u_panel")
+
+    print("[6/7] M x dt grid of estimates + CIs  (Section 4.2 experiment)")
     res_grid = grid_sweep(TOY, dts_tab, Ms_tab, get_rng, method="exact",
                           name="grid")
     for row in res_grid:
         print_table(row, exact=float(u_exact(TOY.X0, TOY)),
                     title=f"GBM, exact updates, M={row[0].M}:")
-    save(figures.fig_m_dt_grid(TOY, res_grid), "05_m_dt_grid")
+    save(figures.fig_m_dt_grid(TOY, res_grid), "06_m_dt_grid")
 
-    print("[6/6] convergence order (Figure 12.4)")
+    print("[7/7] convergence order (Figure 12.4)")
     res_conv = dt_sweep(CONV, dts_conv, M_conv, get_rng, method="exact",
                         name="convergence")
     print_table(res_conv, exact=float(u_exact(CONV.X0, CONV)),
                 title=f"GBM (mu={CONV.mu}, X0={CONV.X0}), M={M_conv}:")
     fig, (q, C, resid) = figures.fig_convergence(CONV, res_conv)
-    save(fig, "06_convergence")
+    save(fig, "07_convergence")
     print(f"least-squares fit of (12.5):  q = {q:.4f}  (residual {resid:.4f})")
     print(f"done in {time.time() - t0:.1f}s")
 
