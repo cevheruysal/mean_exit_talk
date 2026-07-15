@@ -23,6 +23,7 @@ from .simulate import (
     fit_order,
     print_table,
 )
+from . import figures
 
 __all__ = [
     "Params", "TOY", "CONV", "rng_factory",
@@ -30,4 +31,5 @@ __all__ = [
     "solve_bvp_fd",
     "MCResult", "exit_times_exact", "exit_times_em", "exit_times_em_gbm",
     "summarize", "dt_sweep", "grid_sweep", "fit_order", "print_table",
+    "figures",
 ]
