@@ -12,6 +12,7 @@ Running example everywhere: geometric Brownian motion
 ```bash
 python -m venv .venv && .venv\Scripts\activate
 pip install -r requirements.txt
+jupyter lab presentation.ipynb
 ```
 
 ## Reproducing the figures on demand
