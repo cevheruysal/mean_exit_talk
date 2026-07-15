@@ -13,3 +13,12 @@ Running example everywhere: geometric Brownian motion
 python -m venv .venv && .venv\Scripts\activate
 pip install -r requirements.txt
 ```
+
+## Reproducing the figures on demand
+
+```bash
+python scripts/make_figures.py                # book parameters (a few minutes)
+python scripts/make_figures.py --fast         # smoke test (seconds)
+python scripts/make_figures.py --seed 42      # reproducible
+python scripts/make_figures.py --outdir figs --formats png,pdf
+```
