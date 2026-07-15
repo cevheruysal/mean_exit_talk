@@ -12,9 +12,22 @@ with exit interval (a, b) and deterministic X(0) = X0 in (a, b).
 from .params import Params, TOY, CONV, rng_factory
 from .exact import u_exact, gbm_exact, gbm_mean, u_argmax
 from .bvp import solve_bvp_fd
+from .simulate import (
+    MCResult,
+    exit_times_exact,
+    exit_times_em,
+    exit_times_em_gbm,
+    summarize,
+    dt_sweep,
+    grid_sweep,
+    fit_order,
+    print_table,
+)
 
 __all__ = [
     "Params", "TOY", "CONV", "rng_factory",
     "u_exact", "gbm_exact", "gbm_mean", "u_argmax",
     "solve_bvp_fd",
+    "MCResult", "exit_times_exact", "exit_times_em", "exit_times_em_gbm",
+    "summarize", "dt_sweep", "grid_sweep", "fit_order", "print_table",
 ]
