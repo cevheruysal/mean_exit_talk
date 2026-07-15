@@ -14,7 +14,7 @@ from .exact import u_exact, gbm_exact, gbm_mean, u_argmax
 from .bvp import solve_bvp_fd
 from .simulate import (
     MCResult,
-    exit_times_exact,
+    exit_times_exact_gbm,
     exit_times_em,
     exit_times_em_gbm,
     summarize,
@@ -29,7 +29,7 @@ __all__ = [
     "Params", "TOY", "CONV", "rng_factory",
     "u_exact", "gbm_exact", "gbm_mean", "u_argmax",
     "solve_bvp_fd",
-    "MCResult", "exit_times_exact", "exit_times_em", "exit_times_em_gbm",
+    "MCResult", "exit_times_exact_gbm", "exit_times_em", "exit_times_em_gbm",
     "summarize", "dt_sweep", "grid_sweep", "fit_order", "print_table",
     "figures",
 ]

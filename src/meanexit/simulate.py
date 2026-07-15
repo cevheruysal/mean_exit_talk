@@ -58,7 +58,7 @@ def summarize(samples: NDArray[np.float64], dt: float) -> MCResult:
     )
 
 
-def exit_times_exact(
+def exit_times_exact_gbm(
     p: Params,
     dt: float,
     M: int,
@@ -162,11 +162,11 @@ def exit_times_em_gbm(
 
 def dt_sweep(
     p: Params,
-    dts: List[float],
-    M: int,
     get_rng: Callable[[str], np.random.Generator],
-    method: str = "exact",
     name: str = "sweep",
+    dts: List[float] = [1e-1, 1e-2, 1e-3],
+    M: int = 10_000,
+    method: str = "exact",
 ) -> List[MCResult]:
     """Run the Monte Carlo algorithm for several stepsizes.
 
@@ -177,7 +177,7 @@ def dt_sweep(
     for dt in dts:
         rng = get_rng(f"{name}-dt={dt!r}")
         if method == "exact":
-            T: NDArray[np.float64] = exit_times_exact(p, dt, M, rng)
+            T: NDArray[np.float64] = exit_times_exact_gbm(p, dt, M, rng)
         elif method == "em":
             T = exit_times_em_gbm(p, dt, M, rng)
         else:
@@ -187,12 +187,12 @@ def dt_sweep(
 
 
 def grid_sweep(
-    p: Params,
-    dts: List[float],
-    Ms: List[int],
+    p: Params, 
     get_rng: Callable[[str], np.random.Generator],
-    method: str = "exact",
     name: str = "grid",
+    dts: List[float] = [1e-1, 1e-2, 1e-3], 
+    Ms: List[int] = [1000, 10_000, 100_000],
+    method: str = "exact",
 ) -> List[List[MCResult]]:
     """Run the Monte Carlo algorithm on the full M x dt grid.
 
@@ -201,7 +201,7 @@ def grid_sweep(
     :func:`figures.fig_convergence` unchanged.
     """
     return [
-        dt_sweep(p, dts, M, get_rng, method=method, name=f"{name}-M={M}")
+        dt_sweep(p, get_rng, f"{name}-M={M}", dts, M, method=method)
         for M in Ms
     ]
 
