@@ -2,6 +2,7 @@ __pycache__/
 .ipynb_checkpoints/
 .venv/
 figures/
+__marimo__/
 *.aux
 *.log
 *.out
